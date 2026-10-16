@@ -6,6 +6,76 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Happy Birthday Vartika 💗</title>
 <style>
+  
+/* Floating hearts and sparkles */
+.float-item {
+  position: fixed;
+  bottom: -40px;
+  left: var(--x);
+  font-size: var(--size);
+  pointer-events: none;
+  z-index: 5;
+  animation: floatUp var(--duration) linear forwards;
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0;
+  }
+  15% { opacity: 1; }
+  100% {
+    transform: translateY(-115vh) rotate(35deg);
+    opacity: 0;
+  }
+}
+
+/* Reveal sections on scroll */
+.reveal {
+  opacity: 0;
+  transform: translateY(35px);
+  transition: opacity .8s ease, transform .8s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Bouncing gift buttons */
+.gift {
+  animation: giftBounce 2s ease-in-out infinite;
+}
+
+.gift:nth-child(2) { animation-delay: .2s; }
+.gift:nth-child(3) { animation-delay: .4s; }
+
+@keyframes giftBounce {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  50% { transform: translateY(-9px) rotate(3deg); }
+}
+
+/* Photo hover animation */
+.gallery img {
+  transition: transform .4s ease, box-shadow .4s ease;
+}
+
+.gallery img:hover {
+  transform: scale(1.04) rotate(-1deg);
+  box-shadow: 0 10px 25px #d75d9440;
+}
+
+/* Glowing birthday heading */
+.hero h1 {
+  animation: birthdayGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes birthdayGlow {
+  from { text-shadow: 0 0 3px #fff; }
+  to { text-shadow: 0 0 18px #ff9dc9; }
+}
+  
+  
 *{box-sizing:border-box}
 body{margin:0;background:#fff3f8;color:#694158;
 font-family:Georgia,serif;text-align:center}
@@ -150,6 +220,47 @@ Made with endless love by Subhi 💗
 </footer>
 
 <script>
+  
+/* Floating hearts throughout the website */
+function createFloatingHeart() {
+  const item = document.createElement('span');
+  item.className = 'float-item';
+
+  const symbols = ['💗', '💕', '✨', '🦋', '🌸'];
+  item.textContent =
+    symbols[Math.floor(Math.random() * symbols.length)];
+
+  item.style.setProperty('--x', Math.random() * 95 + 'vw');
+  item.style.setProperty('--size', 16 + Math.random() * 20 + 'px');
+  item.style.setProperty('--duration', 5 + Math.random() * 4 + 's');
+
+  document.body.appendChild(item);
+
+  setTimeout(() => item.remove(), 9500);
+}
+
+setInterval(createFloatingHeart, 700);
+
+/* Smooth reveal as sections enter the screen */
+document.querySelectorAll('section').forEach((section) => {
+  if (section.id !== 'home') {
+    section.classList.add('reveal');
+  }
+});
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.reveal').forEach((section) => {
+  observer.observe(section);
+});
+                         
+  
 function go(id){document.getElementById(id).scrollIntoView({behavior:'smooth'})}
 const messages=[
 "🎉 A lifetime supply of laughs and beautiful memories!",
