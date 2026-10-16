@@ -7,6 +7,55 @@
 <title>Happy Birthday Vartika 💗</title>
 <style>
   
+.cartoon-reaction {
+  font-size: 76px;
+  margin: 12px 0;
+  animation: cartoonBounce 1s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+
+@keyframes cartoonBounce {
+  0%, 100% {
+    transform: translateY(0) rotate(0);
+  }
+  50% {
+    transform: translateY(-12px) rotate(4deg);
+  }
+}
+
+.cartoon-reaction.happy {
+  animation: happyDance .5s ease-in-out 3;
+}
+
+@keyframes happyDance {
+  0%, 100% {
+    transform: rotate(0) scale(1);
+  }
+  25% {
+    transform: rotate(-12deg) scale(1.12);
+  }
+  75% {
+    transform: rotate(12deg) scale(1.12);
+  }
+}
+
+.cartoon-reaction.sad {
+  animation: sadShake .35s ease-in-out 2;
+}
+
+@keyframes sadShake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-6px);
+  }
+  75% {
+    transform: translateX(6px);
+  }
+}
+  
+  
 /* Cute password reactions */
 .cartoon-reaction {
   font-size: 76px;
@@ -346,7 +395,7 @@ function unlockSurprise() {
 
   if (input.value.trim().toUpperCase() === 'VARTIKA') {
     const cartoon = document.getElementById('cartoonReaction');
-cartoon.textContent = '🦕🥰💗';
+cartoon.textContent = '🦄🥰💗';
 cartoon.className = 'cartoon-reaction happy';
     message.classList.remove('hidden');
     feedback.textContent = 'Yayyy! Surprise unlocked! 💗';
@@ -356,7 +405,7 @@ cartoon.className = 'cartoon-reaction happy';
     celebrate();
   } else {
     const cartoon = document.getElementById('cartoonReaction');
-cartoon.textContent = '🦕🥺💧';
+cartoon.textContent = '🦄🥺💧';
 cartoon.className = 'cartoon-reaction sad';
     feedback.textContent = 'Oops! Wrong code. Try again, bestie! 🥹💕';
     feedback.style.color = '#c03968';
