@@ -430,6 +430,66 @@ font-size:32px;width:100px;height:100px;border-radius:18px}
   }
 }
   
+/* Birthday gallery layout fix */
+.birthday-gallery {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  padding: 12px;
+  align-items: start;
+}
+
+.birthday-photo {
+  width: 100%;
+  max-width: none;
+  min-width: 0;
+  box-sizing: border-box;
+  padding: 10px;
+  margin: 0;
+  background: #fff;
+  border: 2px solid #ffc1d8;
+  border-radius: 20px;
+  box-shadow: 0 5px 18px #e77ca533;
+  text-align: center;
+  overflow: hidden;
+}
+
+.birthday-photo img {
+  display: block;
+  width: 100%;
+  height: 190px;
+  object-fit: cover;
+  border-radius: 13px;
+}
+
+.birthday-photo p {
+  font-size: 13px;
+  line-height: 1.5;
+  margin: 12px 2px 5px;
+  overflow-wrap: anywhere;
+  color: #a33b69;
+}
+
+@media (max-width: 360px) {
+  .birthday-gallery {
+    gap: 8px;
+    padding: 8px;
+  }
+
+  .birthday-photo {
+    padding: 7px;
+  }
+
+  .birthday-photo img {
+    height: 150px;
+  }
+
+  .birthday-photo p {
+    font-size: 12px;
+  }
+}
+  
+  
 </style>
 </head>
 <body>
@@ -463,12 +523,12 @@ font-size:32px;width:100px;height:100px;border-radius:18px}
   <div class="gallery">
     <div class="card">
       <img src="photo1.jpg" alt="Vartika birthday photo one">
-      <p>Madam ko dekho, full celebrity vibes 😂👑</p>
+      <p>Innocent face, dangerous level ki nautanki 😭😂</p>
     </div>
 
     <div class="card">
       <img src="photo2.jpg" alt="Vartika birthday photo two">
-      <p>Innocent face, dangerous level ki nautanki 😭😂</p>
+      <p>Madam ko dekho, full celebrity vibes 😂👑</p>
     </div>
 
     <div class="card">
