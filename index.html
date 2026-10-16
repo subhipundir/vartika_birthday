@@ -109,6 +109,52 @@ font-size:32px;width:100px;height:100px;border-radius:18px}
 .fall{position:absolute;top:-30px;animation:fall 3s linear forwards}
 @keyframes fall{to{transform:translateY(110vh) rotate(600deg)}}
 .small{font-size:13px;color:#9c728a}
+  
+/* Secret birthday surprise */
+.passcode-box {
+  max-width: 500px;
+  margin: 35px auto;
+  padding: 28px 18px;
+  background: linear-gradient(145deg, #fff, #ffe5f0);
+  border: 2px solid #f4bfd7;
+  border-radius: 25px;
+  box-shadow: 0 10px 30px #d75d9420;
+}
+
+.passcode-box .lock {
+  font-size: 65px;
+  animation: pulse 1.4s infinite;
+}
+
+.passcode-box input {
+  width: min(100%, 280px);
+  padding: 14px;
+  border: 2px solid #efb6d0;
+  border-radius: 18px;
+  text-align: center;
+  font-size: 17px;
+  outline: none;
+}
+
+.passcode-box input:focus {
+  border-color: #d75d94;
+  box-shadow: 0 0 12px #f4bfd7;
+}
+
+.wrong-code {
+  animation: shake 0.35s;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-7px); }
+  75% { transform: translateX(7px); }
+}
+
+.success-message {
+  animation: birthdayGlow 1.5s infinite alternate;
+}
+  
 </style>
 </head>
 <body>
@@ -214,12 +260,79 @@ Love you loads, always on your side 💕
 <p>Forever your friend,<br>Subhi 💗</p>
 </div>
 </section>
+  
+<div id="secretSurprise" class="passcode-box">
+  <div class="lock">🔐</div>
+  <h2>A Secret Just for You 💗</h2>
+  <p>Hey Vartika! Can you guess the secret code? 🎀</p>
+  <p class="small">Hint: Your name is the magic word! ✨</p>
+
+  <input
+    id="secretCode"
+    type="text"
+    placeholder="Enter secret code"
+    autocomplete="off"
+    maxlength="30"
+  >
+
+  <br>
+
+  <button onclick="unlockSurprise()">
+    Unlock My Surprise 💌
+  </button>
+
+  <p id="codeFeedback" aria-live="polite"></p>
+
+  <div id="unlockedMessage" class="hidden">
+    <div style="font-size:65px">🥹💗🦋</div>
+    <h2 class="success-message">You Did It, Vartika!</h2>
+    <p>You are not just my bestie, you are my favourite person! 💕</p>
+    <p>A little reminder: you will always have me by your side. 🌷</p>
+    <button onclick="celebrate()">
+      Celebrate With Me! 🎉
+    </button>
+  </div>
+</div>
+  
 
 <footer style="padding:25px;background:#ffe1ef">
 Made with endless love by Subhi 💗
 </footer>
 
 <script>
+  
+function unlockSurprise() {
+  const input = document.getElementById('secretCode');
+  const feedback = document.getElementById('codeFeedback');
+  const box = document.getElementById('secretSurprise');
+  const message = document.getElementById('unlockedMessage');
+
+  if (input.value.trim().toUpperCase() === 'VARTIKA') {
+    message.classList.remove('hidden');
+    feedback.textContent = 'Yayyy! Surprise unlocked! 💗';
+    feedback.style.color = '#b34f7d';
+    input.disabled = true;
+    box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    celebrate();
+  } else {
+    feedback.textContent = 'Oops! Wrong code. Try again, bestie! 🥹💕';
+    feedback.style.color = '#c03968';
+
+    box.classList.remove('wrong-code');
+    void box.offsetWidth;
+    box.classList.add('wrong-code');
+
+    input.value = '';
+    input.focus();
+  }
+}
+
+document.getElementById('secretCode').addEventListener('keydown', function(event) {
+  if (event.key === 'Enter') {
+    unlockSurprise();
+  }
+});
+  
   
 /* Floating hearts throughout the website */
 function createFloatingHeart() {
