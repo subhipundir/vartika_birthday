@@ -285,6 +285,71 @@ font-size:32px;width:100px;height:100px;border-radius:18px}
 }
   
   
+.birthday-cake {
+  max-width: 500px;
+  margin: 30px auto;
+  padding: 25px 15px;
+  text-align: center;
+  background: linear-gradient(135deg, #fff0f6, #ffe0ed);
+  border: 2px solid #ffc1d8;
+  border-radius: 25px;
+  box-shadow: 0 8px 25px #e77ca533;
+}
+
+.cake-candles {
+  font-size: 35px;
+  margin: 12px;
+  animation: candleGlow 1s ease-in-out infinite alternate;
+}
+
+@keyframes candleGlow {
+  from { filter: drop-shadow(0 0 2px #ffbf69); }
+  to { filter: drop-shadow(0 0 10px #ff8c42); }
+}
+
+.cake-top {
+  font-size: 35px;
+  margin-bottom: -5px;
+}
+
+.cake-base {
+  font-size: 100px;
+  cursor: pointer;
+  display: inline-block;
+  transition: transform .3s ease;
+  animation: cakeBounce 2s ease-in-out infinite;
+}
+
+.cake-base:hover {
+  transform: scale(1.12);
+}
+
+@keyframes cakeBounce {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -7px; }
+}
+
+#cakeMessage {
+  margin-top: 20px;
+  padding: 15px;
+  background: #ffffffd9;
+  border-radius: 18px;
+  animation: letterAppear .8s ease;
+}
+
+#cakeMessage h3 {
+  color: #d94f87;
+}
+
+#cakeMessage button {
+  border: none;
+  border-radius: 20px;
+  padding: 12px 18px;
+  background: #ed79a9;
+  color: white;
+  cursor: pointer;
+  }
+  
 </style>
 </head>
 <body>
@@ -442,6 +507,23 @@ Made with endless love by Subhi 💗
     </div>
   </div>
   
+<div class="birthday-cake">
+  <h2>Make a Birthday Wish, Vartika! 🎂</h2>
+  <p>Tap the cake to blow out the candles! 💗</p>
+
+  <div id="cakeCandles" class="cake-candles">🕯️ 🕯️ 🕯️</div>
+  <div class="cake-top">🍓🍰🍓</div>
+  <div class="cake-base" onclick="blowCandles()">🎂</div>
+
+  <div id="cakeMessage" style="display:none;">
+    <h3>✨ Make a Wish! ✨</h3>
+    <p>May all your dreams come true, bestie! 💕</p>
+    <p>Happy Birthday, Vartika! 🥳🎀</p>
+    <button onclick="relightCandles()">Light Candles Again 🕯️</button>
+  </div>
+</div>
+  
+  
 </footer>
 
 <script>
@@ -562,6 +644,25 @@ function openLetter() {
     icon.textContent = '💌';
   }
 }
+  
+  
+function blowCandles() {
+  const candles = document.getElementById('cakeCandles');
+  const message = document.getElementById('cakeMessage');
+
+  candles.textContent = '💨 ✨ 💨';
+  candles.style.animation = 'none';
+  message.style.display = 'block';
+}
+
+function relightCandles() {
+  const candles = document.getElementById('cakeCandles');
+  const message = document.getElementById('cakeMessage');
+
+  candles.textContent = '🕯️ 🕯️ 🕯️';
+  candles.style.animation = '';
+  message.style.display = 'none';
+  }
   
 </script>
 </body>
