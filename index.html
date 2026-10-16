@@ -1,0 +1,180 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Happy Birthday Vartika 💗</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#fff3f8;color:#694158;
+font-family:Georgia,serif;text-align:center}
+section{padding:55px 18px}
+.hero{min-height:100vh;display:flex;flex-direction:column;
+align-items:center;justify-content:center;
+background:linear-gradient(145deg,#ffe1ef,#f1e5ff,#fff5fa)}
+h1{font-size:clamp(42px,11vw,65px);margin:12px}
+h2{font-size:30px}
+p{line-height:1.8}
+button{border:0;border-radius:28px;background:#d75d94;
+color:white;padding:13px 22px;font-size:16px;margin:8px;cursor:pointer}
+.card{background:white;border-radius:22px;padding:22px;
+margin:18px auto;max-width:650px;box-shadow:0 6px 24px #b85c8115}
+.heroIcon{font-size:65px;animation:pulse 1.4s infinite}
+@keyframes pulse{50%{transform:scale(1.13)}}
+.gallery{display:grid;grid-template-columns:1fr 1fr;gap:12px;
+max-width:650px;margin:auto}
+.gallery img{width:100%;height:230px;object-fit:cover;
+border:7px solid white;border-radius:12px;box-shadow:0 4px 12px #0001}
+.gallery img:first-child{grid-column:1/-1;height:320px}
+video{width:100%;border-radius:15px;margin:12px 0}
+.pink{background:#ffe5f0}
+.lilac{background:#f0e8ff}
+.letter{text-align:left;white-space:pre-line;line-height:1.9}
+.hidden{display:none}
+.gifts{display:flex;justify-content:center;flex-wrap:wrap;gap:8px}
+.gift{background:white;color:#b34f7d;border:2px solid #f2bfd7;
+font-size:32px;width:100px;height:100px;border-radius:18px}
+#confetti{position:fixed;inset:0;pointer-events:none;overflow:hidden}
+.fall{position:absolute;top:-30px;animation:fall 3s linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(600deg)}}
+.small{font-size:13px;color:#9c728a}
+</style>
+</head>
+<body>
+<div id="confetti"></div>
+
+<section class="hero" id="home">
+<div class="heroIcon">💗</div>
+<p>A LITTLE SURPRISE MADE WITH LOVE</p>
+<h1>Happy Birthday,<br>Vartika! 🎂</h1>
+<p>To my coffee buddy, gossip partner and forever bestie. 🎀</p>
+<button onclick="celebrate();go('story')">Open Your Surprise 💌</button>
+<p class="small">Made with love by Subhi</p>
+</section>
+
+<section class="pink" id="story">
+<p>OUR LITTLE STORY 🌷</p>
+<h2>From strangers to besties</h2>
+<div class="card">
+<p>We met in the first year of college, and I never knew our random friendship would become such a special part of my life.</p>
+<p>From coffee dates ☕ and gossip 🍵 to macaroni mornings 🍝, every little moment is a memory I treasure.</p>
+<p>And of course... "You're the CR, get the class cancelled!" 😂💕</p>
+</div>
+<button onclick="go('photos')">See Our Memories 📸</button>
+</section>
+
+<section id="photos">
+<p>MY FAVOURITE MEMORIES</p>
+<h2>Us, in little moments 💕</h2>
+<div class="gallery">
+<img src="photo1.jpg" alt="Birthday girl's memory one">
+<img src="photo2.jpg" alt="Birthday girl's memory two">
+<img src="photo3.jpg" alt="Birthday girl's memory three">
+</div>
+<p class="small">Our little scrapbook of memories 📷</p>
+</section>
+
+<section class="lilac" id="videos">
+<p>MOMENTS WE CAN REPLAY FOREVER 🎬</p>
+<h2>Our little movie</h2>
+<div class="card">
+<video controls playsinline preload="metadata">
+<source src="video1.mp4" type="video/mp4">
+Your browser does not support this video.
+</video>
+<video controls playsinline preload="metadata">
+<source src="video2.mp4" type="video/mp4">
+Your browser does not support this video.
+</video>
+</div>
+</section>
+
+<section class="pink" id="gifts">
+<p>JUST FOR YOU 🎁</p>
+<h2>Open your little gifts</h2>
+<p>Tap every gift to reveal a message!</p>
+<div class="gifts">
+<button class="gift" onclick="gift(0)">🎁</button>
+<button class="gift" onclick="gift(1)">💝</button>
+<button class="gift" onclick="gift(2)">🎀</button>
+</div>
+<div class="card" id="giftText">Your surprises are waiting! 💗</div>
+</section>
+
+<section id="letterSection">
+<p>FROM MY HEART 💌</p>
+<h2>A letter for you</h2>
+<div class="card">
+<div style="font-size:50px">💌</div>
+<p>There's something I want you to read...</p>
+<button onclick="document.getElementById('letter').classList.toggle('hidden')">Open My Letter 💗</button>
+<div class="letter hidden" id="letter">Dear Vartika,
+Happy Birthday, my bestie! 🎉 We met in the first year of college, and I had no idea back then that this random friendship would become my favourite part of these three years.
+Remember how I was all alone at the start of college? You were the one who talked to me first, and I will never forget that. 🥹
+Since then you have been my coffee buddy ☕, my gossip partner (spilling the tea on everyone is our favourite sport 🍵😜), and my partner in crime on mornings when we skip breakfast and end up eating macaroni 🍝.
+And how can I forget: whenever you don't want to attend a class, it's "You're the CR, get the class cancelled!" 😂 And if I don't listen, guess who gets scolded? Me, of course 😅 But you are also the one who takes care of me every single time. That scolding is just love in disguise 💕
+Also, thank you for praising my cooking every single time, even on the days it did not turn out that good 🙈 You are the sweetest food critic ever 🍽️
+One memory I can never forget: when someone who was once your best friend had a fight with me, you left her side and came to support me. That meant the world to me, and I will always remember it.
+
+I just wish that you stay happy like this always, keep smiling, and that all your dreams come true.
+Love you loads, always on your side 💕
+– Subhi</div>
+</div>
+</section>
+
+<section class="lilac">
+<p>A SONG FOR YOU 🎶</p>
+<h2>Khayal 💗</h2>
+<p>Arijit Singh</p>
+<p>Tap below to listen to the song.</p>
+<button onclick="window.open('https://www.youtube.com/results?search_query=Khayal+Arijit+Singh+official','_blank')">Play Khayal 🎵</button>
+<p class="small">Opens YouTube. Music is not embedded in this website.</p>
+</section>
+
+<section class="hero">
+<div class="heroIcon">🎂</div>
+<h2>One Last Surprise...</h2>
+<button onclick="document.getElementById('final').classList.remove('hidden');celebrate()">Tap to open 💝</button>
+<div id="final" class="card hidden">
+<h2>You are so loved, Vartika! 🥹💕</h2>
+<p>No matter where life takes us, you'll always be my favourite person.</p>
+<p>Thank you for being YOU.</p>
+<p>Happy Birthday, bestie! 🎀</p>
+<p>Forever your friend,<br>Subhi 💗</p>
+</div>
+</section>
+
+<footer style="padding:25px;background:#ffe1ef">
+Made with endless love by Subhi 💗
+</footer>
+
+<script>
+function go(id){document.getElementById(id).scrollIntoView({behavior:'smooth'})}
+const messages=[
+"🎉 A lifetime supply of laughs and beautiful memories!",
+"💌 No matter what, you will always have me by your side.",
+"🌷 May all your dreams come true. You deserve every happiness!"
+];
+function gift(i){
+document.getElementById('giftText').textContent=messages[i];
+celebrate();
+}
+function celebrate(){
+const area=document.getElementById('confetti');
+const symbols=['💗','💕','✨','🌸','🎀'];
+for(let i=0;i<28;i++){
+let s=document.createElement('span');
+s.className='fall';
+s.textContent=symbols[Math.floor(Math.random()*symbols.length)];
+s.style.left=Math.random()*100+'%';
+s.style.animationDelay=Math.random()*1.5+'s';
+s.style.fontSize=(16+Math.random()*18)+'px';
+area.appendChild(s);
+setTimeout(()=>s.remove(),4000);
+}
+}
+</script>
+</body>
+  </html>
+  
