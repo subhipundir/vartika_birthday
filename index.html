@@ -489,11 +489,124 @@ font-size:32px;width:100px;height:100px;border-radius:18px}
   }
 }
   
+/* Birthday countdown design */
+#birthdayCountdown {
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+  margin: 15px auto 30px;
+  padding: 35px 15px;
+  text-align: center;
+  color: #a33b69;
+  background: linear-gradient(135deg, #fff0f6, #ffe0ed, #f7e7ff);
+  border: 2px solid #ffc1d8;
+  border-radius: 25px;
+  box-shadow: 0 8px 28px #e77ca544;
+}
+
+.countdown-heart {
+  font-size: 30px;
+  animation: countdownFloat 1.5s ease-in-out infinite;
+}
+
+.countdown-label {
+  font-size: 11px;
+  letter-spacing: 3px;
+  font-weight: bold;
+  color: #d94f87;
+  margin-top: 18px;
+}
+
+#birthdayCountdown h1 {
+  font-size: clamp(25px, 6vw, 38px);
+  color: #d94f87;
+  margin: 12px 0;
+}
+
+.countdown-subtitle {
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.countdown-timer {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 25px auto;
+  flex-wrap: wrap;
+}
+
+.countdown-box {
+  min-width: 55px;
+  padding: 15px 10px;
+  background: #ffffffd9;
+  border: 1px solid #ffc1d8;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px #e77ca522;
+}
+
+.countdown-box span {
+  display: block;
+  font-size: 26px;
+  font-weight: bold;
+  color: #d94f87;
+}
+
+.countdown-box small {
+  display: block;
+  font-size: 11px;
+  color: #a33b69;
+  margin-top: 5px;
+}
+
+#countdownMessage {
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+@keyframes countdownFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+  }
+  
   
 </style>
 </head>
 <body>
-<div id="confetti"></div>
+  
+<!-- Birthday Countdown -->
+<section id="birthdayCountdown">
+  <div class="countdown-heart">💗 🎀 💗</div>
+  <p class="countdown-label">SOMETHING SPECIAL IS COMING...</p>
+  <h1>Vartika's Birthday! 🎂</h1>
+  <p class="countdown-subtitle">
+    The countdown to your special day, bestie! 🥹💕
+  </p>
+
+  <div class="countdown-timer">
+    <div class="countdown-box">
+      <span id="countDays">00</span>
+      <small>Days</small>
+    </div>
+    <div class="countdown-box">
+      <span id="countHours">00</span>
+      <small>Hours</small>
+    </div>
+    <div class="countdown-box">
+      <span id="countMinutes">00</span>
+      <small>Minutes</small>
+    </div>
+    <div class="countdown-box">
+      <span id="countSeconds">00</span>
+      <small>Seconds</small>
+    </div>
+  </div>
+
+  <p id="countdownMessage">Counting every second until your birthday! 💌</p>
+</section>
+  
+<div id="confertti"></div>
 
 <section class="hero" id="home">
 <div class="heroIcon">💗</div>
@@ -977,6 +1090,51 @@ function stopCelebration() {
 }
   
   
+function updateBirthdayCountdown() {
+  const birthdayDate = new Date(
+    "2026-10-17T00:00:00+05:30"
+  ).getTime();
+
+  const now = Date.now();
+  const difference = birthdayDate - now;
+
+  const message = document.getElementById("countdownMessage");
+
+  if (difference <= 0) {
+    document.getElementById("countDays").textContent = "00";
+    document.getElementById("countHours").textContent = "00";
+    document.getElementById("countMinutes").textContent = "00";
+    document.getElementById("countSeconds").textContent = "00";
+
+    if (message) {
+      message.textContent =
+        "🎉 Happy Birthday, Vartika! You deserve all the happiness in the world! 💗🎂";
+    }
+    return;
+  }
+
+  const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+  const hours = Math.floor(
+    (difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+  );
+  const minutes = Math.floor(
+    (difference % (1000 * 60 * 60)) / (1000 * 60)
+  );
+  const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+  document.getElementById("countDays").textContent =
+    String(days).padStart(2, "0");
+  document.getElementById("countHours").textContent =
+    String(hours).padStart(2, "0");
+  document.getElementById("countMinutes").textContent =
+    String(minutes).padStart(2, "0");
+  document.getElementById("countSeconds").textContent =
+    String(seconds).padStart(2, "0");
+}
+
+updateBirthdayCountdown();
+setInterval(updateBirthdayCountdown, 1000);
+    
 </script>
   
 <!-- Birthday Celebration -->
