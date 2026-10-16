@@ -7,6 +7,79 @@
 <title>Happy Birthday Vartika 💗</title>
 <style>
   
+/* Birthday Fireworks & Confetti Styling */
+#birthdayCelebration {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  max-width: 750px;
+  min-height: 280px;
+  margin: 30px auto;
+  padding: 30px 15px;
+  box-sizing: border-box;
+  text-align: center;
+  border: 2px solid #ffc1d8;
+  border-radius: 25px;
+  background: linear-gradient(
+    135deg,
+    #fff0f6,
+    #ffe0ed,
+    #fce7ff
+  );
+  box-shadow: 0 8px 30px #e77ca544;
+}
+
+.celebration-content {
+  position: relative;
+  z-index: 2;
+}
+
+.celebration-emoji {
+  font-size: clamp(38px, 10vw, 65px);
+  animation: celebrationBounce 1.2s ease-in-out infinite;
+}
+
+#birthdayCelebration h2 {
+  color: #d94f87;
+  font-size: clamp(22px, 5vw, 32px);
+  margin: 12px 0;
+}
+
+#birthdayCelebration p {
+  color: #9c3d67;
+  font-size: 16px;
+}
+
+#birthdayCelebration button {
+  margin: 8px 4px;
+  padding: 12px 18px;
+  border: none;
+  border-radius: 25px;
+  background: #e879a8;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#birthdayCelebration button:active {
+  transform: scale(0.95);
+}
+
+#celebrationCanvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes celebrationBounce {
+  0%, 100% { transform: translateY(0) rotate(-4deg); }
+  50% { transform: translateY(-10px) rotate(4deg); }
+}
+  
 .cartoon-reaction {
   font-size: 76px;
   margin: 12px 0;
@@ -350,6 +423,13 @@ font-size:32px;width:100px;height:100px;border-radius:18px}
   cursor: pointer;
   }
   
+@keyframes birthdayConfettiFall {
+  to {
+    transform: translateY(110vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+  
 </style>
 </head>
 <body>
@@ -664,7 +744,183 @@ function relightCandles() {
   message.style.display = 'none';
   }
   
+let celebrationAnimation = null;
+let celebrationRunning = false;
+let celebrationParticles = [];
+let celebrationRockets = [];
+let celebrationLastTime = 0;
+let celebrationResizeHandler = null;
+
+function startCelebration() {
+  const canvas = document.getElementById('celebrationCanvas');
+  if (!canvas) return;
+
+  const ctx = canvas.getContext('2d');
+  const container = document.getElementById('birthdayCelebration');
+  if (!ctx || !container) return;
+
+  if (celebrationAnimation !== null) {
+    cancelAnimationFrame(celebrationAnimation);
+  }
+
+  celebrationRunning = true;
+  celebrationParticles = [];
+  celebrationRockets = [];
+  celebrationLastTime = 0;
+
+  if (celebrationResizeHandler) {
+    window.removeEventListener('resize', celebrationResizeHandler);
+  }
+
+  function resizeCanvas() {
+    const rect = container.getBoundingClientRect();
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = Math.max(1, rect.width * dpr);
+    canvas.height = Math.max(1, rect.height * dpr);
+    canvas.style.width = rect.width + 'px';
+    canvas.style.height = rect.height + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+
+  resizeCanvas();
+  celebrationResizeHandler = resizeCanvas;
+  window.addEventListener('resize', resizeCanvas);
+
+  const colors = [
+    '#ff4f9a', '#ffca3a', '#8a5cff',
+    '#42d6ff', '#ff784f', '#65d66e',
+    '#ffffff'
+  ];
+
+  function launchFirework() {
+    const w = canvas.clientWidth;
+    const h = canvas.clientHeight;
+    if (w <= 0 || h <= 0) return;
+
+    const x = w * (0.15 + Math.random() * 0.7);
+    const y = h * (0.12 + Math.random() * 0.55);
+    const color = colors[Math.floor(Math.random() * colors.length)];
+
+    for (let i = 0; i < 42; i++) {
+      const angle = Math.random() * Math.PI * 2;
+      const speed = 1 + Math.random() * 3.5;
+
+      celebrationParticles.push({
+        x, y,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
+        life: 45 + Math.random() * 30,
+        maxLife: 75,
+        color,
+        size: 1.5 + Math.random() * 2.5
+      });
+    }
+  }
+
+  function animate(timestamp) {
+    if (!celebrationRunning) return;
+
+    if (!celebrationLastTime) celebrationLastTime = timestamp;
+    const delta = Math.min((timestamp - celebrationLastTime) / 16.67, 2);
+    celebrationLastTime = timestamp;
+
+    const w = canvas.clientWidth;
+    const h = canvas.clientHeight;
+    ctx.clearRect(0, 0, w, h);
+
+    if (Math.random() < 0.055 && celebrationParticles.length < 650) {
+      launchFirework();
+    }
+
+    celebrationParticles = celebrationParticles.filter(p => p.life > 0);
+
+    for (const p of celebrationParticles) {
+      p.x += p.vx * delta;
+      p.y += p.vy * delta;
+      p.vy += 0.035 * delta;
+      p.vx *= 0.99;
+      p.life -= delta;
+
+      ctx.globalAlpha = Math.max(0, p.life / p.maxLife);
+      ctx.fillStyle = p.color;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    ctx.globalAlpha = 1;
+    celebrationAnimation = requestAnimationFrame(animate);
+  }
+
+  celebrationAnimation = requestAnimationFrame(animate);
+
+  // Colourful confetti rain
+  const confettiColors = colors.slice(0, 6);
+
+  for (let i = 0; i < 85; i++) {
+    const piece = document.createElement('span');
+    piece.textContent = Math.random() > 0.5 ? '●' : '■';
+
+    Object.assign(piece.style, {
+      position: 'fixed',
+      left: Math.random() * 100 + 'vw',
+      top: '-25px',
+      zIndex: '99999',
+      pointerEvents: 'none',
+      fontSize: (8 + Math.random() * 12) + 'px',
+      color: confettiColors[
+        Math.floor(Math.random() * confettiColors.length)
+      ],
+      animation: `birthdayConfettiFall ${2.5 + Math.random() * 3}s linear forwards`,
+      animationDelay: Math.random() * 1.5 + 's'
+    });
+
+    document.body.appendChild(piece);
+    setTimeout(() => piece.remove(), 7500);
+  }
+}
+
+function stopCelebration() {
+  celebrationRunning = false;
+
+  if (celebrationAnimation !== null) {
+    cancelAnimationFrame(celebrationAnimation);
+    celebrationAnimation = null;
+  }
+
+  const canvas = document.getElementById('celebrationCanvas');
+  if (canvas) {
+    const ctx = canvas.getContext('2d');
+    if (ctx) ctx.clearRect(0, 0, canvas.width, canvas.height);
+  }
+
+  celebrationParticles = [];
+
+  if (celebrationResizeHandler) {
+    window.removeEventListener('resize', celebrationResizeHandler);
+    celebrationResizeHandler = null;
+  }
+}
+  
+  
 </script>
+  
+<!-- Birthday Celebration -->
+<div id="birthdayCelebration">
+  <div class="celebration-content">
+    <div class="celebration-emoji">🎆🎂🎉</div>
+    <h2>Happy Birthday, Vartika! 💗</h2>
+    <p>Today is all about YOU, bestie! 🥹🎀</p>
+    <button onclick="startCelebration()">
+      Celebrate Again! 🎉
+    </button>
+    <button onclick="stopCelebration()">
+      Stop Celebration ✋
+    </button>
+  </div>
+  <canvas id="celebrationCanvas"></canvas>
+</div>
+  
 </body>
   </html>
   
