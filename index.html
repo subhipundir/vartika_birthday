@@ -238,6 +238,53 @@ font-size:32px;width:100px;height:100px;border-radius:18px}
   animation: birthdayGlow 1.5s infinite alternate;
 }
   
+.letter-envelope {
+  max-width: 500px;
+  margin: 30px auto;
+  padding: 25px 18px;
+  text-align: center;
+  background: linear-gradient(135deg, #fff0f6, #ffe0ed);
+  border: 2px solid #ffc1d8;
+  border-radius: 24px;
+  box-shadow: 0 8px 25px #e77ca533;
+  cursor: pointer;
+  transition: transform .3s ease, box-shadow .3s ease;
+}
+
+.letter-envelope:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px #e77ca555;
+}
+
+.envelope-icon {
+  font-size: 85px;
+  animation: envelopeFloat 1.8s ease-in-out infinite;
+}
+
+@keyframes envelopeFloat {
+  0%, 100% { transform: translateY(0) rotate(-3deg); }
+  50% { transform: translateY(-10px) rotate(3deg); }
+}
+
+#extraLetter {
+  margin-top: 20px;
+  padding: 18px;
+  background: #ffffffd9;
+  border-radius: 18px;
+  line-height: 1.8;
+  animation: letterAppear .8s ease;
+}
+
+#extraLetter p {
+  color: #a33b69;
+}
+
+@keyframes letterAppear {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+  
+  
 </style>
 </head>
 <body>
@@ -383,6 +430,18 @@ Love you loads, always on your side 💕
 
 <footer style="padding:25px;background:#ffe1ef">
 Made with endless love by Subhi 💗
+  
+  <div class="letter-envelope" onclick="openLetter()">
+    <div class="envelope-icon" id="envelopeIcon">💌</div>
+    <h2>One Last Little Surprise! 🎀</h2>
+    <p>Tap to open your secret letter, Vartika 💗</p>
+    <div id="extraLetter" style="display:none;">
+      <p>Dear Vartika, 🥹💕</p>
+      <p>You make my college life brighter, my smiles bigger, and my memories sweeter. I am so lucky to have you as my bestie!</p>
+      <p>Always stay the beautiful, crazy, amazing person you are. Love you loads! 🦋💗</p>
+    </div>
+  </div>
+  
 </footer>
 
 <script>
@@ -490,6 +549,20 @@ area.appendChild(s);
 setTimeout(()=>s.remove(),4000);
 }
 }
+  
+function openLetter() {
+  const letter = document.getElementById('extraLetter');
+  const icon = document.getElementById('envelopeIcon');
+
+  if (letter.style.display === 'none') {
+    letter.style.display = 'block';
+    icon.textContent = '💖💌';
+  } else {
+    letter.style.display = 'none';
+    icon.textContent = '💌';
+  }
+}
+  
 </script>
 </body>
   </html>
